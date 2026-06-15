@@ -26,9 +26,8 @@ RESULTS.mkdir(exist_ok=True)
 
 SEED = 42
 
-# ---------------------------------------------------------------
 # 1. Carga de datos
-# ---------------------------------------------------------------
+
 edges = pd.read_csv(DATA / "email-Eu-core.txt", sep=" ", names=["source", "target"])
 labels = pd.read_csv(
     DATA / "email-Eu-core-department-labels.txt", sep=" ", names=["node", "dept"]
@@ -52,9 +51,8 @@ stats = {
 }
 print("Estadisticas basicas:", stats)
 
-# ---------------------------------------------------------------
 # 2. Deteccion de comunidades (Louvain)
-# ---------------------------------------------------------------
+
 communities = nx.community.louvain_communities(G, seed=SEED)
 comm_of = {n: i for i, c in enumerate(communities) for n in c}
 
@@ -77,9 +75,7 @@ stats.update(
 print(f"Comunidades Louvain: {len(communities)} | Modularidad: {modularity:.3f}")
 print(f"NMI organigrama vs comunidades: {nmi:.3f} | ARI: {ari:.3f}")
 
-# ---------------------------------------------------------------
 # 3. Que departamentos se mezclan? Matriz departamento x comunidad
-# ---------------------------------------------------------------
 df = pd.DataFrame({"dept": y_dept, "comm": y_comm}, index=nodes)
 
 # Pureza de cada departamento: % de sus miembros en su comunidad mas frecuente
@@ -96,9 +92,7 @@ print(purity_big.head(5).round(2).to_string())
 print("\nDepartamentos (>=10 personas) MAS cohesionados:")
 print(purity_big.tail(5).round(2).to_string())
 
-# ---------------------------------------------------------------
-# 4. Brokers: gente que conecta departamentos (betweenness)
-# ---------------------------------------------------------------
+# 4. Brokers: gente que conecta departamentos 
 bet = nx.betweenness_centrality(G, seed=SEED)
 deg = dict(G.degree())
 top_brokers = sorted(bet, key=bet.get, reverse=True)[:10]
@@ -118,9 +112,7 @@ brokers_df = pd.DataFrame(broker_rows)
 print("\nTop 10 brokers (mayor intermediacion):")
 print(brokers_df.to_string(index=False))
 
-# ---------------------------------------------------------------
 # 5. Figuras
-# ---------------------------------------------------------------
 pos = nx.spring_layout(G, seed=SEED, k=0.08)
 
 fig, axes = plt.subplots(1, 2, figsize=(18, 8.5))
@@ -188,9 +180,7 @@ fig.tight_layout()
 fig.savefig(FIGS / "03_cohesion_departamental.png", dpi=150, bbox_inches="tight")
 plt.close(fig)
 
-# ---------------------------------------------------------------
 # 6. Resumen
-# ---------------------------------------------------------------
 brokers_df.to_csv(RESULTS / "top_brokers.csv", index=False)
 purity.round(3).to_csv(RESULTS / "cohesion_departamentos.csv")
 with open(RESULTS / "stats.json", "w") as f:
