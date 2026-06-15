@@ -34,11 +34,9 @@ labels = pd.read_csv(
 )
 dept = dict(zip(labels.node, labels.dept))
 
-# Grafo no dirigido (nos interesa "quien habla con quien"), sin autobucles
 G = nx.from_pandas_edgelist(edges, "source", "target")
 G.remove_edges_from(nx.selfloop_edges(G))
 
-# Componente gigante (empleados conectados entre si)
 gc = max(nx.connected_components(G), key=len)
 G = G.subgraph(gc).copy()
 
