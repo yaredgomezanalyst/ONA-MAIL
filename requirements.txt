@@ -1,0 +1,4 @@
+networkx>=3.0
+pandas
+scikit-learn
+matplotlib

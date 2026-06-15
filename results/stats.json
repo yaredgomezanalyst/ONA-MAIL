@@ -1,0 +1,11 @@
+{
+  "n_empleados": 986,
+  "n_relaciones": 16064,
+  "densidad": 0.0331,
+  "grado_medio": 32.6,
+  "n_departamentos": 42,
+  "n_comunidades_louvain": 8,
+  "modularidad": 0.411,
+  "NMI_dept_vs_comunidades": 0.592,
+  "ARI_dept_vs_comunidades": 0.358
+}
