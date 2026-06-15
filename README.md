@@ -7,7 +7,7 @@
 ## Hallazgos principales
 
 1. **La estructura informal es más simple que la formal**: el algoritmo de Louvain detecta solo **8 comunidades reales** de comunicación frente a los 42 departamentos oficiales (NMI = 0,59). Varios departamentos funcionan de facto como un único equipo.
-2. **Hay departamentos que trabajan "partidos"**: algunos tienen menos del 50% de sus miembros en su comunidad principal — colaboran más con otras áreas que entre sí.
+2. **Hay departamentos que trabajan "partidos"**: algunos tienen menos del 50% de sus miembros en su comunidad principal, colaboran más con otras áreas que entre sí.
 3. **Un puñado de "brokers" sostiene la comunicación transversal**: un solo empleado conecta 36 de los 42 departamentos. Si se va, la organización lo nota.
 
 ## Stack
